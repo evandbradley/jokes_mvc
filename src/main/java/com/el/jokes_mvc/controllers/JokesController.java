@@ -1,10 +1,11 @@
-package com.el.jokes_mvc.controllers;
+	package com.el.jokes_mvc.controllers;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.el.jokes_mvc.models.Joke;
@@ -21,10 +22,25 @@ public class JokesController {
 	}
 	
 	@GetMapping("/")
-	public ModelAndView calculator() {
+	public ModelAndView read() {
 		ModelAndView mv = new ModelAndView();
 		List<Joke> jokes = jokeRepository.findAll();
 		mv.addObject("jokes", jokes);
+		mv.setViewName("read");
+		return mv;
+	}
+	
+	@GetMapping("/create")
+	public ModelAndView newJoke() {
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("create");
+		return mv;
+	}
+	
+	@PostMapping("/")
+	public ModelAndView create(String joke, String punchline, int rating) {
+		ModelAndView mv = new ModelAndView();
+		jokeRepository.save(new Joke(joke, punchline, rating));
 		mv.setViewName("read");
 		return mv;
 	}
