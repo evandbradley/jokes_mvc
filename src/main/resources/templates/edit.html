@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Jokes MVC CRUD App</title>
+	</head>
+	<body>
+		<table rules="rows">
+		<tr>
+			<td>Joke</td>
+			<td>Punchline</td>
+			<td>Rating</td>
+			
+		</tr>
+		{{#jokes}}
+			<tr>
+			<form method="post" action="/edit">
+			<input type="hidden" value="{{id}}" name="id"/>
+			<td><textarea name="joke" placeholder="Edit joke">{{joke}}</textarea></td>
+			<td><textarea name="punchline" placeholder="Edit punchline">{{punchline}}</textarea></td>
+			<td><textarea name="rating" placeholder="Edit rating">{{rating}}</textarea></td>
+			<td><button>Update</button></td>
+			</form>
+			<form method="post" action="/delete">
+			<td>
+			<input type="hidden" value="{{id}}" name="id"/>
+			<button>Delete</button>
+			</td>
+			</form>
+			</tr>
+		{{/jokes}}
+		</table>
+	</body>
+</html>
