@@ -39,10 +39,8 @@ public class JokesController {
 	
 	@PostMapping("/create")
 	public ModelAndView create(String joke, String punchline, int rating) {
-		ModelAndView mv = new ModelAndView();
 		jokeRepository.save(new Joke(joke, punchline, rating));
-		mv.setViewName("read");
-		return mv;
+		return new ModelAndView("redirect:/");
 	}
 	
 	@GetMapping("/edit")
@@ -56,24 +54,18 @@ public class JokesController {
 	
 	@PostMapping("/edit")
 	public ModelAndView update(int id, String joke, String punchline, int rating) {
-		ModelAndView mv = new ModelAndView();
 		Joke jokeObj = jokeRepository.findOne(id);
 		jokeObj.setJoke(joke);
 		jokeObj.setPunchline(punchline);
 		jokeObj.setRating(rating);
-		//jokeRepository.delete(id);
 		jokeRepository.save(jokeObj);
-		
-		mv.setViewName("read");
-		return mv;
+		return read();
 	}
 	
 	@PostMapping("/delete")
 	public ModelAndView delete(int id) {
-		ModelAndView mv = new ModelAndView();
 		jokeRepository.delete(id);
-		mv.setViewName("read");
-		return mv;
+		return new ModelAndView("redirect:/");
 	}
 
 }
