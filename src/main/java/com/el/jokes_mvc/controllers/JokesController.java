@@ -38,7 +38,7 @@ public class JokesController {
 		return mv;
 	}
 	
-	@PostMapping("/")
+	@PostMapping("/create")
 	public ModelAndView create(String joke, String punchline, int rating) {
 		ModelAndView mv = new ModelAndView();
 		jokeRepository.save(new Joke(joke, punchline, rating));
